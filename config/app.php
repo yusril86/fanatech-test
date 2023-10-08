@@ -168,6 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -182,7 +185,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        // 'Example' => App\Facades\Example::class,        
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+      'DataTablesButtons' => Yajra\DataTables\Facades\Buttons::class,
     ])->toArray(),
 
 ];

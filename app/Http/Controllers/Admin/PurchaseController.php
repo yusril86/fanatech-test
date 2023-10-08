@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Purchase;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PurchaseDetail;
+use App\Exports\PurchaseExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PurchaseController extends Controller
 {
@@ -17,7 +19,12 @@ class PurchaseController extends Controller
     public function index()
     {
         $idUser = Auth::user()->id;
-        $purchases = Purchase::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
+        if (Auth::user()->hasRole(['SuperAdmin', 'Manager'])){
+            $purchases = Purchase::all();
+        }else{
+
+            $purchases = Purchase::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
+        }
 
         return view('pages.backend.purchase.index', compact('purchases'));
     }
@@ -127,5 +134,10 @@ class PurchaseController extends Controller
                 'status' => 'Behasil Hapus data',
                 'type' => 'success'
         ]);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new PurchaseExport, 'purchase.xlsx');
     }
 }

@@ -78,11 +78,18 @@
     {{-- ----Manager---- --}}
     @role('Manager')
     <li class="nav-item">
-      <a class="nav-link @if (Request::segment(1) != 'admin') collapsed  @endif" href="{{route('admin.dashboard')}}">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
+      <a class="nav-link @if (Request::segment(2) != 'sales') collapsed  @endif" href="{{route('manager.sale.index')}}">
+        <i class="bi bi-card-checklist"></i>
+        <span>Penjualan</span>
       </a>
-    </li><!-- End Dashboard Nav -->        
+    </li><!-- End Dashboard Nav -->  
+    
+    <li class="nav-item">
+      <a class="nav-link @if (Request::segment(2) != 'purchase') collapsed  @endif" href="{{route('manager.purchase.index')}}">
+        <i class="bi bi-card-checklist"></i>
+        <span>Pembelian</span>
+      </a>
+    </li><!-- End Dashboard Nav -->  
     @endrole
 
   </ul>

@@ -23,3 +23,6 @@
 <link href="{{url('backend/assets/vendor/DataTables/datatables.min.css')}}" rel="stylesheet" />
 <!-- Template Main CSS File -->
 <link href="{{url('backend/assets/css/style.css')}}" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.0/css/buttons.dataTables.min.css">

@@ -9,7 +9,8 @@
 @endif
 <div id="home">
     
-    <div class="container-fluid mt-5">                                
+    <div class="container-fluid mt-5"> 
+        @hasanyrole('SuperAdmin|Purchase')                               
         <div class="d-flex justify-content-end ">    
             @role('SuperAdmin')        
             <a href="{{ route('admin.purchase.create') }}" class="btn btn-primary btn-sm shadow-sm ">
@@ -23,17 +24,22 @@
             </a> 
             @endrole        
         </div>
+        @endhasanyrole   
         <div class="clearfix"></div>
         <br>
         <div class="card card-rounded">
             <div class="card-header bg-primary text-white d-flex justify-content-between">
                 <i class="fa fa-cubes"></i>
-                @hasanyrole('SuperAdmin|Manager')
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalExport">
+                @role('SuperAdmin')
+                <a class="btn btn-success btn-sm" id="export-excel" href="{{ route('admin.excel.purchase') }}">
                     <i class="fas fa-file-excel mr-2"></i> Export
-                </button>
-                
-                @endhasanyrole                
+                </a>                            
+                @endrole 
+                @role('Manager')
+                <a class="btn btn-success btn-sm" id="export-excel" href="{{ route('manager.excel.purchase') }}">
+                    <i class="fas fa-file-excel mr-2"></i> Export
+                </a>                            
+                @endrole                
             </div>
             
             

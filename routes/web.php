@@ -40,6 +40,8 @@ Route::middleware(['auth', 'role:SuperAdmin'])->name('admin.')->prefix('admin')-
     Route::get('/role/role-permission/{id}',[RoleController::class,'rolePermission'])->name('role.permission');
     Route::post('/role/givepermission/{role}',[RoleController::class,'givePermission'])->name('role.givepermission');    
     Route::delete('/role/{roles}/revoke-permission/{permission}',[RoleController::class,'revokePermission'])->name('role.revokepermission'); 
+    Route::get('export-sales',[SalesController::class,'export'])->name('excel.sales');
+    Route::get('export-purchase',[PurchaseController::class,'export'])->name('excel.purchase');
 });
 
 Route::middleware(['auth', 'role:Sales'])->name('sales.')->prefix('sales')->group(function () {      
@@ -50,6 +52,13 @@ Route::middleware(['auth', 'role:Sales'])->name('sales.')->prefix('sales')->grou
 Route::middleware(['auth', 'role:Purchase'])->name('purchases.')->prefix('purchases')->group(function () {      
     Route::resource('purchase',PurchaseController::class);     
     Route::get('getInventoryPrice/{inventoryId}', [SalesController::class,'getInventoryPrice'])->name('getInventoryPrice');    
+});
+
+Route::middleware(['auth', 'role:Manager'])->name('manager.')->prefix('manager')->group(function () {      
+    Route::get('sales',[SalesController::class,'index'])->name('sale.index');
+    Route::get('purchase',[PurchaseController::class,'index'])->name('purchase.index');
+    Route::get('export-sales',[SalesController::class,'export'])->name('excel.sales');
+    Route::get('export-purchase',[PurchaseController::class,'export'])->name('excel.purchase');
 });
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

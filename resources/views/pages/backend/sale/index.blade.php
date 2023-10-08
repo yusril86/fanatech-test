@@ -1,5 +1,7 @@
 @extends('layouts.backend.index')
+
 @section('content')
+
 <!-- header -->
 <div class="clearfix"></div>
 @if (session('status'))
@@ -9,7 +11,8 @@
 @endif
 <div id="home">
     
-    <div class="container-fluid mt-5">                                
+    <div class="container-fluid mt-5">
+        @hasanyrole('SuperAdmin|Sales')
         <div class="d-flex justify-content-end ">    
             @role('SuperAdmin')        
             <a href="{{ route('admin.sales.create') }}" class="btn btn-primary btn-sm shadow-sm ">
@@ -23,24 +26,29 @@
             </a> 
             @endrole        
         </div>
+        @endhasanyrole                                
         <div class="clearfix"></div>
         <br>
         <div class="card card-rounded">
             <div class="card-header bg-primary text-white d-flex justify-content-between">
                 <i class="fa fa-cubes"></i>
-                @hasanyrole('SuperAdmin|Manager')
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalExport">
+                @role('SuperAdmin')
+                <a class="btn btn-success btn-sm" id="export-excel" href="{{ route('admin.excel.sales') }}">
                     <i class="fas fa-file-excel mr-2"></i> Export
-                </button>
-                
-                @endhasanyrole                
+                </a>                            
+                @endrole 
+                @role('Manager')
+                <a class="btn btn-success btn-sm" id="export-excel" href="{{ route('manager.excel.sales') }}">
+                    <i class="fas fa-file-excel mr-2"></i> Export
+                </a>                            
+                @endrole                
             </div>
             
             
             <div class="card-body">
                 @if(count($sales) > 0)
                 <div class="text-center" style="text-transform: capitalize; white-space: nowrap;">
-                    <table id="data-table-search" class="table table-bordered table-sm table-striped" width="100%">
+                    <table id="table-datatables" class=" display table table-bordered table-sm table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -110,6 +118,14 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.0/js/buttons.print.min.js"></script>
+
 <script type="text/javascript">
     $('.delete-confirm').click(function(event){
         var form = $(this).closest("form");
@@ -131,5 +147,16 @@
     });
 </script>
 
+
+
+
+<script type="text/javascript"> 
+    $(document).ready(function () {
+        $('#table-datatables').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+        });        
+    }); 
+</script>
 
 @endsection

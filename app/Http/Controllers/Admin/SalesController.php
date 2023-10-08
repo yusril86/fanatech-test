@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SaleExport;
 use App\Models\Sale;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\SaleDetail;
 use App\Models\SalesDetail;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalesController extends Controller
 {
@@ -18,7 +20,13 @@ class SalesController extends Controller
     public function index()
     {
         $idUser = Auth::user()->id;
-        $sales = Sale::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
+
+        if (Auth::user()->hasRole(['SuperAdmin', 'Manager'])){
+            $sales = Sale::all();
+        }else{
+
+            $sales = Sale::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
+        }        
 
         return view('pages.backend.sale.index', compact('sales'));
     }
@@ -142,5 +150,10 @@ class SalesController extends Controller
         }
 
         return response()->json(['price' => null,'stock' => null]);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new SaleExport, 'sales.xlsx');
     }
 }
