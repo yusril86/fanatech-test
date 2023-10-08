@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SaleDetail extends Model
+class SalesDetail extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
+
+    public function sales(){
+        return $this->belongsTo(Sale::class);
+    }
 }

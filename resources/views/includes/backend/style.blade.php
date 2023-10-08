@@ -17,6 +17,7 @@
 <link href="{{url('backend/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
 <link href="{{url('backend/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 <link href="{{url('backend/assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 {{-- DataTable --}}
 <link href="{{url('backend/assets/vendor/DataTables/datatables.min.css')}}" rel="stylesheet" />

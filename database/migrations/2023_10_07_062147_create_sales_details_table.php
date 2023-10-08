@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('qty');
             $table->integer('price');
             $table->timestamps();
-            $table->foreign('sales_id')->references('id')->on('sales');
-            $table->foreign('inventory_id')->references('id')->on('inventories');
+            $table->foreign('sales_id')->references('id')->on('sales')->onDelete('cascade');;
+            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade');;
         });
     }
 

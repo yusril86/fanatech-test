@@ -44,10 +44,10 @@ class LoginController extends Controller
         if (Auth::user()->hasRole('SuperAdmin')) {
             return  $this->redirectTo='/admin/dashboard';
         }
-        /* elseif (Auth::user()->hasRole('user')) {
-            $this->redirectTo='/user/dashboard';
+        elseif (Auth::user()->hasRole('Sales')) {
+            $this->redirectTo='/sales/sales/';
             return $this->redirectTo;           
-        } */
+        }
       
        $this->middleware('guest')->except('logout');
    }
