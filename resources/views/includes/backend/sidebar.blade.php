@@ -11,6 +11,25 @@
     </li><!-- End Dashboard Nav -->
 
     <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Manage User</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{{route('admin.user.index')}}">
+            <i class="bi bi-circle"></i><span>Data User</span>
+          </a>
+        </li>   
+        
+        <li>
+          <a href="{{route('admin.role.index')}}">
+            <i class="bi bi-circle"></i><span>Hak akses User</span>
+          </a>
+        </li>  
+      </ul>
+    </li><!-- End Forms Nav -->
+
+    <li class="nav-item">
       <a class="nav-link @if (Request::segment(2) != 'inventory') collapsed  @endif" href="{{route('admin.inventory.index')}}">
         <i class="bi bi-card-checklist"></i>
         <span>Inventory</span>
