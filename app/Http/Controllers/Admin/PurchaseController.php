@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Sale;
+use App\Models\Purchase;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Inventory;
-use App\Models\SaleDetail;
-use App\Models\SalesDetail;
+use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\Auth;
 
-class SalesController extends Controller
+class PurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +17,9 @@ class SalesController extends Controller
     public function index()
     {
         $idUser = Auth::user()->id;
-        $sales = Sale::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
+        $purchases = Purchase::where('user_id', $idUser)->orderBy('created_at', 'DESC')->get();
 
-        return view('pages.backend.sale.index', compact('sales'));
+        return view('pages.backend.purchase.index', compact('purchases'));
     }
 
     /**
@@ -29,7 +28,7 @@ class SalesController extends Controller
     public function create()
     {
         $inventories = Inventory::all();
-        return view('pages.backend.sale.create', compact('inventories'));
+        return view('pages.backend.purchase.create', compact('inventories'));
     }
 
     /**
@@ -47,32 +46,29 @@ class SalesController extends Controller
 
         $validation['user_id'] = $idUser;
 
-        Sale::create($validation);
+        Purchase::create($validation);
 
-        $getIdSales = Sale::latest()->first()?->id ;
+        $getIdPurchase = Purchase::latest()->first()?->id ;
         $validationSaleDetail = $request->validate([
             'qty' => 'required',                     
             'price' => 'required'
         ]);
         $validationSaleDetail['inventory_id'] = $request->inventory_id;
-        $validationSaleDetail['sales_id'] = $getIdSales;
+        $validationSaleDetail['purchases_id'] = $getIdPurchase;
 
-        SalesDetail::create($validationSaleDetail);
+        PurchaseDetail::create($validationSaleDetail);
 
         if (Auth::user()->hasRole('SuperAdmin')){
-            return to_route('admin.sales.index')->with([
+            return to_route('admin.purchase.index')->with([
                 'status' => 'Behasil tambah data',
                 'type' => 'success'
             ]);
         }else{
-            return to_route('sales.sales.index')->with([
+            return to_route('purchases.purchase.index')->with([
                 'status' => 'Behasil tambah data',
                 'type' => 'success'
             ]);
         }
-
-    //    dd($getIdSales);
-        
     }
 
     /**
@@ -88,8 +84,8 @@ class SalesController extends Controller
      */
     public function edit(string $id)
     {
-        $sale = Sale::findOrFail($id);
-        return view('pages.backend.sale.edit',compact('sale'));
+        $purchase = Purchase::findOrFail($id);
+        return view('pages.backend.purchase.edit',compact('purchase'));
     }
 
     /**
@@ -97,22 +93,22 @@ class SalesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $sale = Sale::findOrFail($id);
+        $purchase = Purchase::findOrFail($id);
 
         $validation = $request->validate([
             'number' => 'required',
             'date' => 'required'
         ]);
 
-        $sale->update($validation);
+        $purchase->update($validation);
 
         if (Auth::user()->hasRole('SuperAdmin')){
-            return to_route('admin.sales.index')->with([
+            return to_route('admin.purchase.index')->with([
                 'status' => 'Behasil Ubah data',
                 'type' => 'success'
             ]);
         }else{
-            return to_route('sales.sales.index')->with([
+            return to_route('purchases.purchase.index')->with([
                 'status' => 'Behasil Ubah data',
                 'type' => 'success'
             ]);
@@ -124,23 +120,12 @@ class SalesController extends Controller
      */
     public function destroy(string $id)
     {
-        $sale = Sale::findOrFail($id);
-        $sale->delete();
+        $purchase = Purchase::findOrFail($id);
+        $purchase->delete();
 
         return back()->with([
                 'status' => 'Behasil Hapus data',
                 'type' => 'success'
         ]);
-    }
-
-    public function getInventoryPrice($inventoryId)
-    {
-        $inventory = Inventory::find($inventoryId);
-
-        if ($inventory) {
-            return response()->json(['price' => $inventory->price, 'stock' =>  $inventory->stock]);
-        }
-
-        return response()->json(['price' => null,'stock' => null]);
     }
 }

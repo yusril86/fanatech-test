@@ -47,6 +47,9 @@ class LoginController extends Controller
         elseif (Auth::user()->hasRole('Sales')) {
             $this->redirectTo='/sales/sales/';
             return $this->redirectTo;           
+        }elseif (Auth::user()->hasRole('Purchase')) {
+            $this->redirectTo='/purchases/purchase/';
+            return $this->redirectTo;           
         }
       
        $this->middleware('guest')->except('logout');

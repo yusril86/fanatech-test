@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SalesController;
 
 /*
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'role:SuperAdmin'])->name('admin.')->prefix('admin')-
     Route::resource('inventory',InventoryController::class);
     Route::resource('sales',SalesController::class);
     Route::get('getInventoryPrice/{inventoryId}', [SalesController::class,'getInventoryPrice'])->name('getInventoryPrice');
+    Route::resource('purchase',PurchaseController::class);
     // Route::resource('user',UserController::class);
     // Route::resource('role',RoleController::class);
     // Route::resource('permission',PermissionController::class);
@@ -38,7 +40,12 @@ Route::middleware(['auth', 'role:SuperAdmin'])->name('admin.')->prefix('admin')-
 
 Route::middleware(['auth', 'role:Sales'])->name('sales.')->prefix('sales')->group(function () {      
     Route::resource('sales',SalesController::class);     
-    Route::get('getInventoryPrice/{inventoryId}', [SalesController::class,'getInventoryPrice'])->name('getInventoryPrice');
+    Route::get('getInventoryPrice/{inventoryId}', [SalesController::class,'getInventoryPrice'])->name('getInventoryPrice');    
+});
+
+Route::middleware(['auth', 'role:Purchase'])->name('purchases.')->prefix('purchases')->group(function () {      
+    Route::resource('purchase',PurchaseController::class);     
+    Route::get('getInventoryPrice/{inventoryId}', [SalesController::class,'getInventoryPrice'])->name('getInventoryPrice');    
 });
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

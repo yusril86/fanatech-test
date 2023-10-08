@@ -25,9 +25,9 @@
     </li><!-- End purchases Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link @if (Request::segment(1) != 'purchases') collapsed  @endif" href="{{route('admin.dashboard')}}">
+      <a class="nav-link @if (Request::segment(2) != 'purchase') collapsed  @endif" href="{{route('admin.purchase.index')}}">
         <i class="bi bi-card-checklist"></i>
-        <span>Purchases</span>
+        <span>Pembelian</span>
       </a>
     </li><!-- End purchases Page Nav -->
     @endrole
@@ -46,11 +46,11 @@
     
 
     {{-- ----Purchases---- --}}
-    @role('Purchases')
+    @role('Purchase')
     <li class="nav-item">
-      {{-- <a class="nav-link @if (Request::segment(1) != 'purchases') collapsed  @endif" href="{{route('purchases.index')}}"> --}}
+      <a class="nav-link @if (Request::segment(2) != 'purchase') collapsed  @endif" href="{{route('purchases.purchase.index')}}">
         <i class="bi bi-card-checklist"></i>
-        <span>Purchases</span>
+        <span>Pembelian</span>
       </a>
     </li><!-- End purchases Page Nav -->
     @endrole
