@@ -13,7 +13,8 @@
                 <div class="card-body">
                     @role('SuperAdmin')
                     <form method="POST" action="{{route("admin.sales.store")}}">
-                    @else
+                    @endrole
+                    @role('Sales')
                     <form method="POST" action="{{route("sales.sales.store")}}">
                     @endrole
                         @csrf

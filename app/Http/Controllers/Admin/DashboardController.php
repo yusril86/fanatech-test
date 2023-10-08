@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Inventory;
+use App\Models\Purchase;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,12 +22,14 @@ class DashboardController extends Controller
 
         // $totalHpp =$product->selling_price;
 
+        $inventory = Inventory::get()->count();
+        $sales = Sale::get()->count();
+        $purchase = Purchase::get()->count();
+
         return view('pages.backend.dashboard', [
-            /* 'customer' => $customer,
-            'transaksi' => $transaksi,
-            'totalHpp' => $totalHpp,
-            'ekspedisi' => $ekspedisi,
-            'orderBelumLunas' => $orderBelumLunas */
+            'inventory' => $inventory,
+            'sales' => $sales,
+            'purchase' => $purchase,            
         ]);
 
         // dd($total);

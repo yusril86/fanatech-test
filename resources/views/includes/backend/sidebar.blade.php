@@ -56,7 +56,7 @@
     {{-- ----Sales---- --}}
     @role('Sales')
     <li class="nav-item">
-      <a class="nav-link @if (Request::segment(1) != 'sales') collapsed  @endif" href="{{route('sales.index')}}">
+      <a class="nav-link @if (Request::segment(1) != 'sales') collapsed  @endif" href="{{route('sales.sales.index')}}">
         <i class="bi bi-card-checklist"></i>
         <span>Penjualan</span>
       </a>

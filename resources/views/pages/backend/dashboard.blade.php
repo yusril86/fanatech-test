@@ -15,10 +15,10 @@
         <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Customer</h5>
+                    <h5 class="card-title">Total Inventory</h5>
                     <div class="d-flex align-items-center">
                         <div class="ps-3">
-                            {{-- <h6>{{$customer}}</h6> --}}
+                            <h6>{{$inventory}}</h6>
                         </div>
                     </div>
                 </div>
@@ -29,10 +29,10 @@
         <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Transaksi</h5>
+                    <h5 class="card-title">Penjualan</h5>
                     <div class="d-flex align-items-center">
                         <div class="ps-3">
-                            {{-- <h6>{{$transaksi}}</h6> --}}
+                            <h6>{{$sales}}</h6>
                         </div>
                     </div>
                 </div>
@@ -43,45 +43,17 @@
         <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
                 <div class="card-body">
-                    <h5 class="card-title">Total belum diantar</h5>
+                    <h5 class="card-title">Pembelian</h5>
                     <div class="d-flex align-items-center">
                         <div class="ps-3">
-                            {{-- <h6>{{$ekspedisi}}</h6> --}}
+                            <h6>{{$purchase}}</h6>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
-        <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-                <div class="card-body">
-                    <h5 class="card-title">Total belum lunas</h5>
-                    <div class="d-flex align-items-center">
-                        <div class="ps-3">
-                            {{-- <h6>{{$orderBelumLunas}}</h6> --}}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-                <div class="card-body">
-                    <h5 class="card-title">Total HPP sisa stok</h5>
-                    <div class="d-flex align-items-center">
-                        <div class="ps-3">
-                            {{-- <h6>Rp{{number_format($totalHpp,0,'','.')}}</h6> --}}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+    
     </div>
 </section>
 @endsection
